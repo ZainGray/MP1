@@ -1,4 +1,4 @@
-# SCLS AI Camp - Mini Project 1: Personal Portfolio
+# 个人网站
 
 [English](README.md) | [简体中文](README_CN.md)
 
@@ -89,7 +89,7 @@ pnpm dev
 ## 许可证
 本项目基于 MIT 许可证 - 查看 LICENSE 文件了解详情
 
-# SCLS AI Camp - 迷你项目1：个人作品集
+# 个人网站
 
 这是 SCLS AI Camp 学生的第一个迷你项目，基于 [Corey Chiu](https://coreychiu.com) 最初创建的优秀作品集模板。该模板已针对教学目的进行了调整，帮助学生学习网页开发、Git 工作流和部署实践。
 

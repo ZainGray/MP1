@@ -1,6 +1,6 @@
-# SCLS AI Camp - Mini Project 1: Personal Portfolio
+#  Personal website
 
-[English](README.md) | [简体中文](README.md#readme-中文)
+[English](README.md) | [简体中文](README_CN.md)
 
 This is Mini Project 1 for SCLS AI Camp students, based on the excellent portfolio template originally created by [Corey Chiu](https://coreychiu.com). This template has been adapted for educational purposes to help students learn web development, Git workflows, and deployment practices.
 
