@@ -1,0 +1,79 @@
+---
+title: 'NebulaGraph的ORM框架的初探索'
+description: ''
+date: '2025-06-13'
+---
+
+
+
+## 引言
+
+选择适用于 NebulaGraph 的 ORM 框架或客户端库主要取决于以下几点：
+
+- **编程语言**：选择适合你项目的编程语言的客户端库。
+- **项目需求**：评估项目需求，决定是使用官方提供的客户端库还是自定义 ORM 层。
+- **性能和扩展性**：考虑客户端库或 ORM 框架的性能和扩展性，以确保它能够满足项目的需求。
+
+目前，NebulaGraph 已经推出了几款ORM框架：graph-ocean、Ngbatis和Carina等。现在我主要观察Ngbatis和Carina，因为这两个框架还在更新，有创作者去维护。
+
+## 一、Ngbatis
+
+### 1.1简单介绍
+
+- **NgBatis** 是一款针对 [NebulaGraph](https://github.com/vesoft-inc/nebula) + Spring Boot 的数据库 ORM 框架。借鉴于 [MyBatis](https://github.com/mybatis/mybatis-3) 的使用习惯进行开发，当中包含了部分类似于 [mybatis-plus](https://github.com/baomidou/mybatis-plus) 的单表操作。另外，还有部分图特有的 `实体-关系` 基本操作。
+- 如果更习惯于 JPA 的方式，[graph-ocean](https://github.com/nebula-contrib/graph-ocean) 是个不错的选择。
+- 支持通过简单配置，快速完成 NebulaGraph 与 Spring Boot 的整合
+- 单表（Vertex、Edge）操作，无需写 `nGQL | Cypher`
+- 使用 XML 的方式，集中管理 `nGQL | Cypher`
+- 提供主键生成器的埋点，开发者可自定义主键生成器
+- 项目地址：https://github.com/nebula-contrib/ngbatis
+
+### 1.2关键环节的相关技术
+
+- 数据库：[NebulaGraph](https://github.com/vesoft-inc/nebula)
+- 动态代理生成框架：[ASM](https://gitlab.ow2.org/asm/asm/) `v8.0`
+- mapper 文件解析：[Jsoup](https://github.com/jhy/jsoup) `v1.12.1`
+- nGQL 模板：[Beetl](https://github.com/javamonkey/beetl2.0) `v3.1.8.RELEASE`
+
+### 1.3环境要求
+
+- Java 8+
+- Spring Boot
+
+具体配置看官网仓库。
+
+## 二、Carina
+
+### 2.1简单介绍
+
+- Carina Nebula 是船底座，南半球可见最大的星云。
+
+- Nebula-Carina是用 Python 开发的针对NebulaGraph+Python的ORM框架。在设计上没有局限于web框架，因此可以被应用在 Django,fastapi, Flask 等主流框架。
+
+- Nebula-Carina目前包含了基础的migration功能，能够自动计算Schema Model的结构与DB Schema的差异，并同步schema到当前space。未来考虑设计和支持包含依赖关系的migration系统(参考Django ORM)
+- Nebula-Carina包含了常规的Schema定义、objectmanager(雏形)、ModelBuilder(雏形)，以及常见的图语言、match语句封装。
+
+- 快速解决轻量级APP的常规需求
+  （1）简洁、快速的Schema定义0
+  （2）一键同步schema到spaceC
+  （3）简洁的JSON序列化和逆序列化
+- 易于使用的Python Data Model
+- 适用于任何 Python Web Framework，也适用于裸Python，可与ai行业快速集成，应用在GNN、NLP等领域。
+- 项目地址：https://github.com/nebula-contrib/nebula-carina
+- **总之，让Python开发者使用NebulaGraph时能把更多精力运用在业务/模型，而非繁琐的数据库**
+  **操作。**
+
+### 2.2要求
+
+```
+ Python（3.10）
+ nebula3-python（>=3.10）
+```
+
+### 2.3安装
+
+```
+pip install nebula-carina
+```
+
+具体环境设置看官网仓库。

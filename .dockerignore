@@ -1,0 +1,25 @@
+# 忽略 node_modules
+**/node_modules
+
+# 忽略构建输出
+**/.next
+
+
+# 忽略 Git 和 IDE 文件
+**/.git
+**/.vscode
+
+
+# 忽略日志和缓存
+**/logs
+**/.cache
+
+# 忽略环境文件
+# **/.env
+# **/.env.local
+
+# 忽略其他不必要的文件
+**/README.md
+**/Dockerfile
+**/.dockerignore
+**/pnpm-lock.yaml

@@ -119,6 +119,10 @@ export const activities = [
    - 放在 `public/images` 文件夹中
    - 在项目配置中引用：`image: '/images/your-screenshot.png'`
 
+3.添加logo
+   - 放在 `public/images/icon` 文件夹中
+   - 配置文件：`'src/components/shared/CustomIcon.tsx'`
+
 ## 🌐 发布网站
 
 1. 保存你的修改：

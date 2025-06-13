@@ -1,0 +1,177 @@
+---
+title: 'Maven和pnpm依赖迁移'
+description: ''
+date: '2025-06-13'
+---
+
+
+## 一、迁移 Maven 本地仓库
+
+要将后端通过 Maven 安装的依赖从一台虚拟机（Ubuntu）迁移到另一台虚拟机，通常有两种方法：直接复制 Maven 的本地仓库或重新安装依赖。
+
+### 方法 1：直接迁移 Maven 本地仓库
+
+Maven 默认会将所有依赖下载到本地的 `.m2` 目录（即本地仓库）。你可以将这个目录直接从一台虚拟机复制到另一台。
+
+#### 步骤：
+
+**1.找到 Maven 本地仓库位置**
+   默认情况下，Maven 的本地仓库位于用户主目录的 `.m2/repository` 下：
+
+   ```bash
+   ~/.m2/repository
+   ```
+
+   如果你使用了自定义的仓库路径，可以检查 Maven 的 `settings.xml` 文件，查看 `<localRepository>` 配置项：
+
+   ```bash
+   cat ~/.m2/settings.xml
+   ```
+
+ **2.打包本地仓库**
+   使用 `tar` 命令将 `.m2/repository` 目录打包：
+
+   ```bash
+   tar -czvf maven-repo.tar.gz ~/.m2/repository
+   ```
+
+ **3.将打包的文件传输到目标虚拟机**
+   使用 `scp` 或其他传输工具将 `maven-repo.tar.gz` 传输到目标虚拟机：
+
+   ```bash
+   scp maven-repo.tar.gz user@destination_ip:/path/to/destination
+   ```
+
+ **4.在目标虚拟机上解压**
+   登录目标虚拟机后，解压这个打包文件：
+
+   ```bash
+   tar -xzvf maven-repo.tar.gz -C /home/user/.m2/
+   ```
+
+   如果 `.m2` 目录不存在，你需要手动创建它：
+
+   ```bash
+   mkdir -p ~/.m2
+   ```
+
+ **5.确认 Maven 在目标虚拟机上的本地仓库位置**
+   确保目标虚拟机的 Maven 使用的本地仓库路径与解压后的路径一致。如果不一致，修改 `~/.m2/settings.xml` 中的 `<localRepository>` 配置项。
+
+ **6.运行 Maven**
+   现在你可以在目标虚拟机上运行 Maven 命令，例如 `mvn install`，Maven 会从已经迁移的本地仓库加载依赖，而不需要重新下载。
+
+---
+
+### 方法 2：重新安装依赖
+
+如果不想迁移 `.m2` 本地仓库，你可以直接将项目的源码或 `pom.xml` 文件复制到目标虚拟机上，然后让 Maven 重新下载依赖。
+
+#### 步骤：
+
+ **1.复制项目文件**
+   将包含 `pom.xml` 文件的项目文件夹从源虚拟机复制到目标虚拟机（可以使用 `scp`、`rsync` 等命令）。
+
+   例如，使用 `scp`：
+
+   ```bash
+   scp -r /path/to/project user@destination_ip:/path/to/destination
+   ```
+
+ **2.在目标虚拟机上执行 Maven 命令**
+   进入项目目录后，运行 `mvn install` 或其他 Maven 命令：
+
+   ```bash
+   cd /path/to/destination/project
+   mvn install
+   ```
+
+   Maven 会根据 `pom.xml` 文件中的依赖列表重新下载所有依赖到目标虚拟机的本地仓库。
+
+
+
+
+
+
+
+## 二、pnpm依赖迁移
+
+在没有网络连接或者网络较慢的情况下，使用 `tar` 打包 `pnpm` 的中央存储库（`pnpm store`）然后在另一台虚拟机上解压是可行的。这种方式避免了重复下载依赖。
+
+### 具体步骤如下：
+
+#### 1. 在源虚拟机上找到 `pnpm store` 的位置
+
+首先，使用以下命令找到 `pnpm store` 的路径：
+
+```bash
+pnpm store path
+```
+
+假设输出的路径是 `/home/user/.pnpm-store`。
+
+#### 2. 打包 `pnpm store`
+
+接下来，使用 `tar` 命令将 `pnpm store` 打包：
+
+```bash
+tar -czvf pnpm-store.tar.gz /home/user/.pnpm-store
+```
+
+这会生成一个名为 `pnpm-store.tar.gz` 的压缩包，包含所有的 `pnpm` 依赖包。
+
+#### 3. 将压缩包传输到目标虚拟机
+
+你可以使用 `scp` 或其他方式将 `pnpm-store.tar.gz` 传输到目标虚拟机：
+
+```bash
+scp pnpm-store.tar.gz user@destination_ip:/path/to/destination
+```
+
+#### 4. 在目标虚拟机上解压 `pnpm store`
+
+登录到目标虚拟机后，解压该压缩包：
+
+```bash
+tar -xzvf pnpm-store.tar.gz -C /path/to/destination
+```
+
+这会将压缩包解压到指定的目录（例如 `/home/user/.pnpm-store`）。确保该路径和 `pnpm` 使用的存储路径一致。如果解压路径不同，你可以根据需要调整 `pnpm` 存储路径。
+
+#### 5. 设置 `pnpm` 使用解压后的存储库（如果路径不同）
+
+如果解压路径和源虚拟机的路径不一致，你可以使用 `pnpm` 的 `store-dir` 选项指定新的存储路径。例如：
+
+```bash
+pnpm install --store-dir /path/to/destination/.pnpm-store
+```
+
+或者你可以修改全局配置文件，设置 `pnpm` 默认的存储路径：
+
+```bash
+pnpm config set store-dir /path/to/destination/.pnpm-store
+```
+
+#### 6. 安装项目依赖
+
+进入项目目录后，运行 `pnpm install`，并指定 `store-dir`：
+
+```bash
+pnpm install --offline --store-dir /path/to/destination/.pnpm-store
+```
+
+或者，如果存储路径已经被正确配置为全局路径，直接运行：
+
+```bash
+pnpm install --offline
+```
+
+这样，`pnpm` 会使用解压后的依赖包存储库来安装项目依赖，而不需要重新从网络下载。
+
+### 总结：
+
+- 通过 `tar` 打包 `pnpm store` 并在目标虚拟机上解压是完全可行的。
+- 解压后，确保 `pnpm store` 的路径与 `pnpm` 配置一致，或者在安装时使用 `--store-dir` 参数指定路径。
+- 使用 `--offline` 参数可以避免重新下载依赖，直接使用现有的存储库。
+
+---

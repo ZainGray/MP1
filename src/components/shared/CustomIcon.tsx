@@ -15,6 +15,7 @@ import {
   LinkedinLogo,
   Television,
   TiktokLogo,
+  Article,
 } from '@phosphor-icons/react'
 
 export function CustomIcon({
@@ -53,6 +54,8 @@ export function CustomIcon({
       return <TiktokLogo size={size} weight="duotone" />
     case 'bilibili':
       return <Television size={size} weight="duotone" />
+    case 'csdn':
+      return <Article size={size} weight="duotone" />
     default:
       return null
   }

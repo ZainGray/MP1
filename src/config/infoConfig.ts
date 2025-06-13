@@ -4,24 +4,21 @@ export * from './career'
 
 // personal info
 export const name = 'Zain Gray'
-export const headline = 'Teacher at Shanghai Soong Ching Ling School.'
+export const headline = '一名热爱编程的研究生' 
 export const introduction =
-  "Coucou Les Amis! My name is Derek Hu. I'm from Hubei and an alumnus of BUPT, UChicago, and Tsinghua. I’ve been teaching Computer Science at SCLS since 2020."
-export const email = 'tong.hu@scls-sh.org'
-export const githubUsername = 'derekhut'
+  "专注于人工智能和软件开发,希望通过技术改变世界。"
+export const email = 'qiuy8685@gmail.com'
+export const githubUsername = 'Mineminen'
 
 // about page
-export const aboutMeHeadline = 'Who Are You and Why Should I Care?'
+export const aboutMeHeadline = '个人简介'
 export const aboutParagraphs = [
-  "Coucou Les Amis! My name is Derek Hu. I'm from Hubei and an alumnus of BUPT, UChicago, and Tsinghua. I’ve been teaching Computer Science at SCLS since 2020.",
-  'Currently I am working on a new course called AI Camp, an innovative course where high school students create real-world products and startups while exploring the frontiers of AI.',
-  "I started this blog to share the insights I learn every day. Most blogs focus on education in Artificial Intelligence and general computer science, while others share the life lessons I've learned.",
+  "大家好，我是Zain Gray，一名热爱编程的研究生。我的专业是网络工程，专注于人工智能和软件开发。我相信技术可以改变世界，并希望通过我的工作为社会做出贡献。",
 ]
-
 // blog
-export const blogHeadLine = "What I've thinking about."
+export const blogHeadLine = "我在思考些什么"
 export const blogIntro =
-  "I've written something about AI, programming and life."
+  "我写了一些关于人工智能、时间序列和编程的内容"
 
 // social links
 export type SocialLinkType = {
@@ -33,14 +30,19 @@ export type SocialLinkType = {
 
 export const socialLinks: Array<SocialLinkType> = [
   {
-    name: 'Tiktok',
-    icon: 'tiktok',
-    href: 'https://www.tiktok.com/@harvard?lang=en',
+    name: 'CSDN',
+    icon: 'csdn',
+    href: 'https://blog.csdn.net/qq_47753695?type=blog',
   },
   {
     name: 'Bilibili',
     icon: 'bilibili',
-    href: 'https://space.bilibili.com/349721082',
+    href: 'https://space.bilibili.com/479373557?spm_id_from=333.1007.0.0',
+  },
+  {
+    name: 'GitHub',
+    icon: 'github',
+    href: 'https://github.com/Mineminen',
   },
 ]
 

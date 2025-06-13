@@ -1,0 +1,110 @@
+---
+title: '配置 VM2 上的 HTTP 服务器（Apache）'
+description: ''
+date: '2025-06-13'
+---
+
+
+
+## 前言
+
+如果文件放在VM2上，想在VM1上进行访问，就可以在VM2配置HTTP 服务器。最后在VM1的网页访问VM2的文件。
+
+
+
+## 1.安装 Apache HTTP 服务器：
+
+```bash
+sudo apt update
+sudo apt install apache2
+```
+
+## 2.确保 Apache 已启动并设置为开机启动：
+
+```bash
+sudo systemctl start apache2
+sudo systemctl enable apache2
+```
+
+## 3.创建一个目录用于共享文件：
+
+假设我们想要共享 /home/kg/测试目录 
+
+```bash
+sudo mkdir -p /home/kg/测试目录
+
+# 确保 /home 目录具有执行权限
+sudo chmod o+x /home
+
+# 确保 /home/kg 目录具有执行权限
+sudo chmod o+x /home/kg
+
+# 确保 /home/kg/测试目录 目录具有读取和执行权限
+sudo chmod -R 755 /home/kg/测试目录
+
+```
+
+## 4. 更新配置文件
+
+确保Apache配置文件 `/etc/apache2/sites-available/000-default.conf` 正确配置。下面是一个示例配置：
+
+```apache
+<VirtualHost *:80>
+    # 其他配置...
+    
+    <Directory /home/kg/测试目录>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+    Alias /测试目录 /home/kg/测试目录
+</VirtualHost>
+```
+
+
+
+## 5. 确认Apache用户和组
+
+确保Apache用户和组是 `www-data`（大多数情况下是这个用户，但在某些系统上可能不同）。
+
+```bash
+# 确认Apache的用户和组
+ps aux | grep apache2
+```
+
+在某些系统上，Apache的用户可能是 `apache`。根据你的实际情况，修改权限命令中的用户和组。
+
+## 6.重新启动Apache
+
+应用更改后，重新启动Apache服务：
+
+```bash
+sudo systemctl restart apache2
+```
+
+## 7.如果出错
+
+###  检查Apache错误日志
+
+再次检查Apache错误日志，确保没有其他权限相关的问题：
+
+```bash
+sudo tail -f /var/log/apache2/error.log
+```
+
+### 确保防火墙允许HTTP流量
+
+确保防火墙设置允许HTTP流量：
+
+```bash
+sudo ufw allow 'Apache Full'
+```
+
+
+
+### 最终访问共享目录
+
+在VM1浏览器中访问 `http://192.168.145.138/测试目录`，你应该能够看到共享目录的内容。如果仍然遇到问题，请检查错误日志并分享具体错误信息，以便进一步诊断问题。
+
+![共享目录设置](/images/apacheVm2.png)

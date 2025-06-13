@@ -15,81 +15,44 @@ export type ActivityItemType = {
 }
 
 // Awards
-export const awardsHeadLine = "Awards & Honors"
-export const awardsIntro = "Recognition for academic and professional achievements."
+export const awardsHeadLine = "奖项与荣誉"
+export const awardsIntro = "学术和职业成就的认可"
 
 export const awards: Array<ActivityItemType> = [
   {
-    name: 'Outstanding Teacher Award',
+    name: '',
     description: '',
-    date: '2024',
-    location: 'SCLS, Shanghai',
+    date: '',
+    location: '',
   },
-  {
-    name: 'Zhui Ying Award',
-    description: '',
-    date: '2023',
-    location: 'Qingpu, Shanghai',
-  },
+ 
 ]
 
 // Research & Projects
-export const projectHeadLine = "Research & Projects"
-export const projectIntro = "Academic research and technical projects I've worked on."
+export const projectHeadLine = "研究与项目"
+export const projectIntro = "我参与的学术研究和技术项目"
 
 export const projects: Array<ProjectItemType> = [
   {
-    name: 'Student Final Project Portfolio',
-    description: 'Static website portfolio',
-    link: { href: 'scls-cs.com', label: 'GitHub Cards' },
-    tags: ['Website', 'Next.js', 'TailwindCSS', 'DaisyUI', 'Portfolio']
+    name: '手写数字识别',
+    description: '在手写数字识别数据集上用不同的神经网络做分类任务',
+    link: { href: 'https://github.com/Mineminen/Classic_model_Mnist', label: 'GitHub Cards' },
+    tags: ['Python', 'cuda', 'pytorch']
   },
-  {
-    name: 'Seeking DNA',
-    description: '2022 SCLS Hackathon',
-    link: { href: 'https://scls-cs.gitbook.io/scls-apcs-lab/lab5-dna', label: 'Hackathon' },
-    tags: ['Hackathon', 'Java']
-  },
-  {
-    name: 'Texas Holdem Poker Judge',
-    description: '2024 SCLS Hackathon',
-    link: { href: 'https://onecompiler.com/challenges/42yf4n5yn/scls-hackathon', label: 'Hackathon' },
-    tags: ['Hackathon']
-  },
-  {
-    name: 'AI Camp Course Development',
-    description: 'Developed a comprehensive AI curriculum for high school students, incorporating real-world projects and startup concepts.',
-    link: { href: 'https://scls-cs.gitbook.io/ai-camp', label: 'View Course' },
-    tags: ['Education', 'AI']
-  },
+ 
 ]
 
 // Hobbies & Volunteer
-export const activitiesHeadLine = "Hobbies & Volunteer"
-export const activitiesIntro = "Personal interests and community contributions."
+export const activitiesHeadLine = "爱好与志愿活动"
+export const activitiesIntro = "个人兴趣和社区贡献"
 
 export const activities: Array<ActivityItemType> = [
-  {
-    name: 'Python Workshop',
-    description:
-      'Teaching basic Python programming concepts to beginners. Covering variables, control flow, and functions.',
-    date: '2024-02-24',
-    location: 'Shanghai',
-    link: 'https://example.com/python-workshop',
-  },
-  {
-    name: 'AI Ethics Discussion',
-    description:
-      'A group discussion about the ethical implications of AI development and its impact on society.',
-    date: '2024-03-01',
-    location: 'Shanghai',
-    link: 'https://example.com/ai-ethics',
-  },
-  {
-    name: 'Code Review Session',
-    description:
-      'Helping students improve their coding skills through peer code review and best practices sharing.',
-    date: '2024-03-15',
-    location: 'Shanghai',
-  },
+   {
+    name: 'dirKG_UI',
+    description: '目录知识图谱交互界面前端和后端',
+    link:  'https://github.com/Mineminen/dirKG_UI',
+    date: '2023-10-01',
+    location: '西安邮电大学',
+   
+  }
 ]

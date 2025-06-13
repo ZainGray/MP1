@@ -15,15 +15,15 @@ function CareerItem({ careerItem }: { careerItem: CareerItemType }) {
         <CustomIcon name={careerItem.logo} />
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
-        <dt className="sr-only">Company</dt>
+        <dt className="sr-only">公司</dt>
         <dd className="w-full flex-none text-sm font-medium">
           {careerItem.company}
         </dd>
-        <dt className="sr-only">Title</dt>
+        <dt className="sr-only">标题</dt>
         <dd className="text-xs text-muted-foreground">
           {careerItem.title}
         </dd>
-        <dt className="sr-only">Date</dt>
+        <dt className="sr-only">日期</dt>
         <dd
           className="ml-auto text-xs text-muted-foreground"
           aria-label={`${careerItem.start} until ${careerItem.end}`}
@@ -40,7 +40,7 @@ export default function Career() {
     <div className="rounded-2xl border border-muted shadow-sm p-6">
       <h2 className="flex text-sm font-semibold">
         <Briefcase size={24} weight="duotone" />
-        <span className="ml-3">Work</span>
+        <span className="ml-3">工作</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {careerList.map((careerItem, careerItemIndex) => (
